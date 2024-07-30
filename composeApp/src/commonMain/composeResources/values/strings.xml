@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FoodDelivery</string>
+    <string name="order_now">ORDER NOW</string>
+    <string name="dismiss">DISMISS</string>
+    <string name="splash_ti">Non-Contact </string>
+    <string name="splash_tiii">Deliveries </string>
+    <string name="categories">Categories</string>
+    <string name="search">Search</string>
+    <string name="vegetables">Vegetables</string>
+    <string name="fruits">Fruits</string>
+    <string name="bruits">Bread</string>
+    <string name="sweets">Sweets</string>
+    <string name="splash_des">When placing an order, select the option “Contactless delivery” and the courier will leave your order at the door.
+</string>
+</resources>
