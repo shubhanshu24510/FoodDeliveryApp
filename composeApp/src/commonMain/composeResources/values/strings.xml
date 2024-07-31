@@ -11,6 +11,9 @@
     <string name="fruits">Fruits</string>
     <string name="bruits">Bread</string>
     <string name="sweets">Sweets</string>
+    <string name="pasta">Pasta</string>
+    <string name="drinks">Drinks</string>
+    <string name="boston_lettuce">Boston Lettuce</string>
     <string name="splash_des">When placing an order, select the option “Contactless delivery” and the courier will leave your order at the door.
 </string>
 </resources>

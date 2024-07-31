@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
@@ -41,6 +42,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import components.FoodOutlinedSearchTextField
+import components.FoodTopAppBar
+import data.DestinationDataSource
+import domain.Destination
 import fooddelivery.composeapp.generated.resources.Res
 import fooddelivery.composeapp.generated.resources.categories
 import fooddelivery.composeapp.generated.resources.ic_back_arrow
@@ -124,65 +129,8 @@ fun HomeScreen(modifier: Modifier = Modifier) {
 
 
 @Composable
-fun FoodTopAppBar(
-    modifier: Modifier = Modifier,
-    tital: String = "",
-    onBackClick: () -> Unit = {}
-) {
-    Column(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        IconButton(
-            onClick = onBackClick,
-            content = {
-                Icon(
-                    imageVector = vectorResource(Res.drawable.ic_back_arrow),
-                    contentDescription = null
-                )
-            }
-        )
-        Spacer(modifier = Modifier.height(15.dp))
-        Text(
-            text = tital,
-            fontSize = 30.sp,
-            modifier = Modifier.padding(horizontal = 18.dp),
-            fontWeight = FontWeight.Bold,
-        )
-        Spacer(modifier = Modifier.height(20.dp))
-        FoodOutlinedSearchTextField()
-    }
-}
-
-
-@Composable
-fun FoodOutlinedSearchTextField(
-    modifier: Modifier = Modifier,
-    onSearchClick: () -> Unit = {}
-) {
-    val (value, onValueChange) = remember { mutableStateOf("") }
-
-    OutlinedTextField(
-        value = value,
-        onValueChange = onValueChange,
-        textStyle = TextStyle(fontSize = 17.sp),
-        shape = RoundedCornerShape(30.dp),
-        leadingIcon = {
-            Icon(imageVector = vectorResource(Res.drawable.ic_search), contentDescription = null,
-                modifier = Modifier.clickable {
-                    onSearchClick()
-                }
-            )
-        },
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 18.dp)
-            .background(Color.White, RoundedCornerShape(16.dp)),
-        placeholder = { Text(text = "Search") },
-    )
-}
-
-@Composable
 fun FoodGridItem(modifier: Modifier = Modifier) {
+    val destinations = DestinationDataSource().loadData()
     val cellCount = 2
     LazyVerticalGrid(
         modifier = modifier,
@@ -191,11 +139,9 @@ fun FoodGridItem(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.spacedBy(10.dp),
         contentPadding = PaddingValues(8.dp)
     ) {
-        item {
+        itemsIndexed(destinations) { index, destination ->
             Row(Modifier.padding(8.dp)) {
-                ItemLayout(
-                    index = 0
-                )
+                ItemLayout(destination, index)
             }
         }
     }
@@ -228,12 +174,10 @@ fun CardItems(
 
 @Composable
 fun ItemLayout(
-//    itemName: TextAlign,
-//    itemVolume: String = "",
-//    itemImage: Painter,
-//    destination: Destination,
+    destination: Destination,
     index: Int,
 //    navController: NavHostController
+
 ) {
     Column(
         verticalArrangement = Arrangement.Center,
