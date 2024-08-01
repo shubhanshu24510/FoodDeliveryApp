@@ -1,4 +1,4 @@
-package presentation
+package foods.presentation
 
 
 import androidx.compose.foundation.Image
@@ -10,25 +10,23 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import components.FoodButton
-import components.FoodDescription
-import components.FoodTitel
-import components.OneTimeClickableText
-import components.SplashIcon
+import foods.presentation.components.FoodButton
+import foods.presentation.components.FoodDescription
+import foods.presentation.components.FoodTitel
+import foods.presentation.components.OneTimeClickableText
+import foods.presentation.components.SplashIcon
 import fooddelivery.composeapp.generated.resources.Res
 import fooddelivery.composeapp.generated.resources.dismiss
 import fooddelivery.composeapp.generated.resources.ic_gradient
-import fooddelivery.composeapp.generated.resources.ic_home_grid
 import fooddelivery.composeapp.generated.resources.ic_logo_splash
 import fooddelivery.composeapp.generated.resources.splash_des
 import fooddelivery.composeapp.generated.resources.splash_ti
@@ -85,7 +83,9 @@ fun SplashScreenRoot(
                 }
                 FoodDescription(description = stringResource(Res.string.splash_des))
                 FoodButton(
-                    onClick = onOrderClick
+                    onClick = {
+                        onOrderClick()
+                    }
                 )
 
                 Row(
@@ -107,28 +107,4 @@ fun SplashScreenRoot(
 }
 
 
-//@Composable
-//fun EllipticalPathCanvas() {
-//    Canvas(modifier = Modifier.fillMaxSize()) {
-//        val ellipseWidth = 500.28.dp.toPx()
-//        val ellipseHeight = 400.61.dp.toPx()
-//
-//        val path = Path().apply {
-//            addOval(Rect(300f, 100f, ellipseWidth, ellipseHeight))
-//        }
-//
-//        drawPath(
-//            path = path,
-//            color = Color.Green,
-//            style = Stroke(
-//                width = 150.28.dp.toPx(),
-//                pathEffect = androidx.compose.ui.graphics.PathEffect.dashPathEffect(
-//                    floatArrayOf(0f, 40f),
-//                    phase = 0f
-//                ),
-//                cap = StrokeCap.Round,
-//            )
-//        )
-//    }
-//}
 

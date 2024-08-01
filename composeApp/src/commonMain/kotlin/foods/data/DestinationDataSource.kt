@@ -1,7 +1,6 @@
-package data
+package foods.data
 
 import androidx.compose.runtime.Composable
-import domain.Destination
 import fooddelivery.composeapp.generated.resources.Res
 import fooddelivery.composeapp.generated.resources.bruits
 import fooddelivery.composeapp.generated.resources.drinks
@@ -15,6 +14,7 @@ import fooddelivery.composeapp.generated.resources.ic_vegetable
 import fooddelivery.composeapp.generated.resources.pasta
 import fooddelivery.composeapp.generated.resources.sweets
 import fooddelivery.composeapp.generated.resources.vegetables
+import foods.domain.Destination
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -31,3 +31,4 @@ class DestinationDataSource {
         )
     }
 }
+

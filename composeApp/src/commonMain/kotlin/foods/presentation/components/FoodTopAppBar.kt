@@ -1,4 +1,4 @@
-package components
+package foods.presentation.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -19,9 +19,9 @@ import org.jetbrains.compose.resources.vectorResource
 
 @Composable
 fun FoodTopAppBar(
-    modifier: Modifier = Modifier,
     tital: String = "",
-    onBackClick: () -> Unit = {}
+    onBackClick: () -> Unit = {},
+//    onSearchClick: () -> Unit ={}
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
@@ -43,6 +43,8 @@ fun FoodTopAppBar(
             fontWeight = FontWeight.Bold,
         )
         Spacer(modifier = Modifier.height(30.dp))
-        FoodOutlinedSearchTextField()
+        FoodOutlinedSearchTextField(
+//            onSearchClick = onSearchClick
+        )
     }
 }

@@ -41,7 +41,7 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-//            implementation("androidx.annotation:annotation:1.8.1")
+            implementation(libs.navigation.compose)
 
         }
     }
@@ -82,5 +82,8 @@ android {
     dependencies {
         debugImplementation(compose.uiTooling)
     }
+}
+dependencies {
+    implementation(libs.androidx.ui.android)
 }
 

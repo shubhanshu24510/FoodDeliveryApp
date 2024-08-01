@@ -1,4 +1,4 @@
-package components
+package foods.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

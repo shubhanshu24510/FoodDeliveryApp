@@ -1,4 +1,4 @@
-package components
+package foods.presentation.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -47,7 +47,6 @@ fun FoodDescription(
         Text(
             text = description, fontSize = 16.sp,
             fontStyle = FontStyle.Normal,
-            color = Color(0xFf9586A8),
             fontWeight = FontWeight.Normal,
             softWrap = true,
             fontFamily = FontFamily.Default,

@@ -1,4 +1,4 @@
-package components
+package foods.presentation.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.height
