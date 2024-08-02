@@ -1,6 +1,7 @@
 package foods.presentation.components
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -14,14 +15,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import fooddelivery.composeapp.generated.resources.Res
+import fooddelivery.composeapp.generated.resources.categories
 import fooddelivery.composeapp.generated.resources.ic_back_arrow
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 
 @Composable
 fun FoodTopAppBar(
     tital: String = "",
     onBackClick: () -> Unit = {},
-//    onSearchClick: () -> Unit ={}
+    onSearchClick: () -> Unit ={}
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
@@ -36,15 +39,15 @@ fun FoodTopAppBar(
             }
         )
         Spacer(modifier = Modifier.height(15.dp))
-        Text(
-            text = tital,
-            fontSize = 30.sp,
-            modifier = Modifier.padding(horizontal = 18.dp),
-            fontWeight = FontWeight.Bold,
+        FoodTitalText(
+            padding = PaddingValues(horizontal = 15.dp),
+            name =tital,
         )
+
         Spacer(modifier = Modifier.height(30.dp))
         FoodOutlinedSearchTextField(
-//            onSearchClick = onSearchClick
+//            onSearchClick = onSearchClick,
+            onSearchClick = onSearchClick
         )
     }
 }

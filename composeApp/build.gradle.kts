@@ -41,7 +41,11 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+            //navigation
             implementation(libs.navigation.compose)
+            //coroutine
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0-RC")
+
 
         }
     }

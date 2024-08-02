@@ -2,7 +2,12 @@ package foods.presentation.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -11,46 +16,55 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import designSystem.FoodTextPrimaryColor
+import designSystem.FoodTextSecondaryColor
+import designSystem.FoodWhiteColor
+import designSystem.RobotoFontFamily
+import fooddelivery.composeapp.generated.resources.Res
+import fooddelivery.composeapp.generated.resources.order_now
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun FoodTitel(
+fun FoodTitalText(
     modifier: Modifier = Modifier,
+    padding: PaddingValues,
     name: String = ""
 ) {
     Text(
         text = name,
         fontSize = 34.sp,
-        color = Color.Black.copy(alpha = 0.8f),
+        color = FoodTextPrimaryColor,
         fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
-        fontFamily = FontFamily.Default,
-        letterSpacing = TextUnit(0.5f, TextUnitType.Sp),
-        modifier = Modifier.padding(horizontal = 75.dp, vertical = 2.dp),
+        fontFamily = RobotoFontFamily(),
+        lineHeight = 0.41.sp,
+        softWrap = true,
+        modifier = Modifier.padding(padding),
         textAlign = TextAlign.Center
     )
 }
 
 @Composable
-fun FoodDescription(
+fun FoodDescriptionText(
     modifier: Modifier = Modifier,
-    description: String = ""
+    name: String = ""
 ) {
-    Box(modifier = Modifier.padding(top = 1.dp)) {
+    Box(modifier = Modifier) {
         Text(
-            text = description, fontSize = 16.sp,
+            text = name,
+            fontSize = 17.sp,
             fontStyle = FontStyle.Normal,
             fontWeight = FontWeight.Normal,
             softWrap = true,
-            fontFamily = FontFamily.Default,
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 13.dp),
+            color = FoodTextSecondaryColor,
+            fontFamily = RobotoFontFamily(),
             textAlign = TextAlign.Center,
         )
     }
@@ -69,11 +83,10 @@ fun OneTimeClickableText(text: String, onClick: () -> Unit) {
         text = text,
         fontSize = 15.sp,
         fontStyle = FontStyle.Normal,
-        color = Color(0xFf9586A8),
+        color = FoodTextSecondaryColor,
         fontWeight = FontWeight.SemiBold,
         softWrap = true,
-        fontFamily = FontFamily.Default,
-//        modifier = Modifier.padding(horizontal = 10.dp, vertical = 12.dp),
+        fontFamily = RobotoFontFamily(),
         textAlign = TextAlign.Center,
     )
 }

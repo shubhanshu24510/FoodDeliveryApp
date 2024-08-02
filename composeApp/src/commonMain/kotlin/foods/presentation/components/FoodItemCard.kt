@@ -21,12 +21,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import designSystem.FoodBackGroundColor
@@ -35,6 +37,7 @@ import designSystem.FoodPrimaryButtonColor
 import designSystem.FoodTextPrimaryColor
 import designSystem.FoodTextSecondaryColor
 import designSystem.FoodWhiteColor
+import designSystem.RobotoFontFamily
 import fooddelivery.composeapp.generated.resources.Res
 import fooddelivery.composeapp.generated.resources.boston_lettuce
 import fooddelivery.composeapp.generated.resources.ic_heart
@@ -46,13 +49,14 @@ import org.jetbrains.compose.resources.vectorResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 
-
 @Preview
 @Composable
-fun FoodItemCard(modifier: Modifier = Modifier) {
+fun FoodItemCard(modifier: Modifier = Modifier,
+                 onClick: () -> Unit = {}) {
     Box {
         Card(
             modifier = modifier
+                .clickable { onClick() }
                 .fillMaxWidth()
                 .padding(horizontal = 10.dp, vertical = 5.dp)
                 .height(160.dp),
@@ -77,26 +81,26 @@ fun FoodItemCard(modifier: Modifier = Modifier) {
                     modifier = Modifier
                         .size(width = 177.dp, height = 128.dp)
                         .padding(horizontal = 5.dp)
-                    .weight(1f)
+                        .weight(1f)
                 ) {
                     Text(
                         text = stringResource(Res.string.boston_lettuce),
                         fontSize = 18.sp,
                         fontWeight = FontWeight.SemiBold,
                         textAlign = TextAlign.Center,
-                        fontFamily = FontFamily.Default,
+                        fontFamily = RobotoFontFamily(),
                         style = TextStyle.Default,
                         color = FoodTextPrimaryColor,
                         modifier = Modifier.padding(7.dp)
                     )
                     Text(
-                        text = stringResource(Res.string.itemPrice,),
+                        text = stringResource(Res.string.itemPrice),
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Normal,
-                        fontFamily = FontFamily.Default,
+                        fontFamily = RobotoFontFamily(),
                         color = FoodTextSecondaryColor,
+                        textAlign = TextAlign.Center,
                         modifier = Modifier.padding(horizontal = 8.dp)
-
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Row(
@@ -107,12 +111,17 @@ fun FoodItemCard(modifier: Modifier = Modifier) {
                         FoodButtonCard(
                             icon = vectorResource(Res.drawable.ic_heart),
                             onClick = {},
+                            width = 78.dp,
+                            height = 40.dp,
+                            color = FoodWhiteColor,
                         )
                         FoodButtonCard(
                             icon = vectorResource(Res.drawable.ic_shopping_cart),
                             onClick = {},
                             color = FoodPrimaryButtonColor,
-                            tintColor = FoodWhiteColor
+                            tintColor = FoodWhiteColor,
+                            width = 78.dp,
+                            height = 40.dp
                         )
                     }
                 }
@@ -122,69 +131,23 @@ fun FoodItemCard(modifier: Modifier = Modifier) {
 
 }
 
-//@Preview
-//@Composable
-//fun FoodItemCard(modifier: Modifier = Modifier) {
-//    Box(
-//        modifier = Modifier.fillMaxWidth()
-//            .height(160.dp).padding(horizontal = 10.dp)
-//    ) {
-//        Row(
-//            modifier = Modifier
-//                .size(width = 177.dp, height = 128.dp)
-//                .padding(3.dp)
-//        ) {
-//            Image(
-//                painter = painterResource(Res.drawable.boston_lettuce),
-//                modifier = Modifier.fillMaxSize(),
-//                contentDescription = null,
-//            )
-//                Column(modifier = Modifier.fillMaxSize()) {
-//                    Text(
-//                        text = stringResource(Res.string.boston_lettuce),
-//                        textAlign = TextAlign.Center,
-//                        modifier = Modifier.padding(10.dp)
-//                    )
-//                    Text("$1.10 € / piece")
-//                    Row(
-//                        modifier = Modifier.fillMaxWidth()
-//                            .padding(top = 25.dp),
-//                        horizontalArrangement = Arrangement.SpaceBetween,
-//                        verticalAlignment = Alignment.CenterVertically
-//                    ) {
-//                        FoodButtonCard(
-//                            icon = vectorResource(Res.drawable.ic_heart),
-//                            onClick = {},
-//                        )
-//                        FoodButtonCard(
-//                            icon = vectorResource(Res.drawable.ic_shopping_cart),
-//                            onClick = {},
-//                            color = FoodPrimaryButtonColor,
-//                            tintColor = FoodWhiteColor
-//                        )
-//                    }
-//                }
-//            }
-//            }
-//
-//    }
-//}
-
 @Composable
 fun FoodButtonCard(
     modifier: Modifier = Modifier,
     icon: ImageVector,
+    width: Dp,
+    height: Dp ,
     onClick: () -> Unit = {},
-    color: Color = Color.White,
+    color: Color,
     tintColor: Color = FoodTextSecondaryColor
 ) {
     Card(
         modifier = Modifier
-            .size(width = 78.dp, height = 40.dp)
+            .size(width =width, height = height)
             .clickable { onClick() },
         colors = CardDefaults.cardColors(color),
-        border = BorderStroke(width = 0.3.dp, color = FoodBorderColor),
-        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+        border = BorderStroke(width = 0.8.dp, color = FoodBorderColor),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
         Box(
             modifier = Modifier.fillMaxSize(),

@@ -27,6 +27,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.traceEventEnd
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -35,12 +36,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import designSystem.FoodTextPrimaryColor
+import designSystem.FoodTextSecondaryColor
+import designSystem.RobotoFontFamily
 import fooddelivery.composeapp.generated.resources.Res
 import fooddelivery.composeapp.generated.resources.categories
 import fooddelivery.composeapp.generated.resources.ic_home_grid
 import fooddelivery.composeapp.generated.resources.ic_shopping_cart
 import fooddelivery.composeapp.generated.resources.ic_user
 import fooddelivery.composeapp.generated.resources.ic_vegetable
+import fooddelivery.composeapp.generated.resources.quantity
 import fooddelivery.composeapp.generated.resources.vegetables
 import foods.data.DestinationDataSource
 import foods.domain.Destination
@@ -51,7 +56,6 @@ import org.jetbrains.compose.resources.vectorResource
 
 @Composable
 fun HomeScreenRoot(
-    onBackClick: () -> Unit = {},
     onCardClick: () -> Unit = {},
     onHomeClick: () -> Unit = {}
 ) {
@@ -59,7 +63,6 @@ fun HomeScreenRoot(
         topBar = {
             FoodTopAppBar(
                 tital = stringResource(Res.string.categories),
-                onBackClick = onBackClick
             )
         },
         bottomBar = {
@@ -67,7 +70,7 @@ fun HomeScreenRoot(
                 containerColor = Color.White,
                 actions = {
                     IconButton(
-                        onClick =onHomeClick,
+                        onClick = onHomeClick,
                         modifier = Modifier.padding(horizontal = 40.dp)
                     ) {
                         Icon(
@@ -113,8 +116,10 @@ fun HomeScreenRoot(
                 ) {
                     itemsIndexed(destinations) { index, destination ->
                         Row(Modifier.padding(8.dp)) {
-                            ItemLayout(destination, index,
-                                onCardClick =onCardClick )
+                            ItemLayout(
+                                destination, index,
+                                onCardClick = onCardClick
+                            )
                         }
                     }
                 }
@@ -177,23 +182,43 @@ fun ItemLayout(
                     .size(width = 177.dp, height = 140.dp),
                 contentScale = ContentScale.Fit
             )
-            Text(
-                text = stringResource(Res.string.vegetables),
-                color = Color.Black,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-                fontSize = 14.sp,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-            )
-            Text(
-                text = "(43)",
-                color = Color.Black,
-                textAlign = TextAlign.Center,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Light,
-                modifier = Modifier.padding(horizontal = 10.dp)
+          FoodItemTitalText(name = stringResource(Res.string.vegetables))
+            FoodItemQuantityText(
+                name = stringResource(Res.string.quantity),
             )
         }
 
     }
+}
+
+@Composable
+fun FoodItemTitalText(
+    modifier: Modifier = Modifier,
+    name: String,
+) {
+    Text(
+        text = name,
+        color = FoodTextPrimaryColor,
+        fontWeight = FontWeight.Bold,
+        textAlign = TextAlign.Center,
+        softWrap = true,
+        fontSize = 18.sp,
+        fontFamily = RobotoFontFamily(),
+        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+    )
+}
+@Composable
+fun FoodItemQuantityText(
+    modifier: Modifier = Modifier,
+    name: String,
+) {
+    Text(
+        text = name,
+        color = FoodTextSecondaryColor,
+        textAlign = TextAlign.Center,
+        fontSize = 12.sp,
+        fontFamily = RobotoFontFamily(),
+        fontWeight = FontWeight.Light,
+        modifier = Modifier.padding(horizontal = 10.dp)
+    )
 }

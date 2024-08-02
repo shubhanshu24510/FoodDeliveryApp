@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import foods.presentation.CategoryScreenRoot
+import foods.presentation.FoodDetailsScreen
 import foods.presentation.HomeScreenRoot
 import foods.presentation.SplashScreenRoot
 
@@ -28,6 +29,9 @@ private fun NavGraphBuilder.foodGraph(
     ) {
         composable(route = "splash") {
             SplashScreenRoot(
+                onDismissClick = {
+                    navController.navigate("home")
+                },
                 onOrderClick = {
                     navController.navigate("home")
                 },
@@ -41,15 +45,18 @@ private fun NavGraphBuilder.foodGraph(
                 onCardClick = {
                     navController.navigate("categaries")
                 },
-                onBackClick = {
-                    navController.navigate("splash")
-                }
             )
+        }
+        composable(route = "details") {
+           FoodDetailsScreen()
         }
         composable(route = "Categaries"){
             CategoryScreenRoot(
                 onBackClick = {
                     navController.navigate("home")
+                },
+                onCardClick = {
+                    navController.navigate("details")
                 }
             )
         }

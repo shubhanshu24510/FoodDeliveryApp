@@ -33,7 +33,7 @@ import org.jetbrains.compose.resources.vectorResource
 @Composable
 fun FoodOutlinedSearchTextField(
     modifier: Modifier = Modifier,
-//    onSearchClick: () -> Unit
+    onSearchClick: () -> Unit
 ) {
     val (value, onValueChange) = remember { mutableStateOf("") }
 
@@ -42,15 +42,16 @@ fun FoodOutlinedSearchTextField(
         onValueChange = onValueChange,
         textStyle = TextStyle(fontSize = 17.sp),
         shape = RoundedCornerShape(30.dp),
-        colors =OutlinedTextFieldDefaults.colors(unfocusedBorderColor = FoodBorderColor),
+        colors = OutlinedTextFieldDefaults.colors(unfocusedBorderColor = FoodBorderColor),
         leadingIcon = {
             Icon(imageVector = vectorResource(Res.drawable.ic_search),
-                 contentDescription = null,
+                contentDescription = null,
+                tint = Color.Black,
                 modifier = Modifier
-                    .size(20.dp)
+                    .size(24.dp)
                     .clickable {
-//                    onSearchClick()
-                }
+                        onSearchClick()
+                    }
             )
         },
 //        border = BorderStroke(width = 1.dp, color = Color.Transparent),
@@ -61,16 +62,14 @@ fun FoodOutlinedSearchTextField(
             .padding(horizontal = 18.dp)
             .background(Color.White, RoundedCornerShape(16.dp)),
         placeholder = {
-            Box(modifier =Modifier
-                .height(49.dp)){
-                Text(text = stringResource(Res.string.search),
-                    fontSize = 15.sp,
-                    letterSpacing = TextUnit.Unspecified,
-                    textAlign = TextAlign.Center,
-                    fontWeight = FontWeight.Normal,
-                    lineHeight =24.sp ,
-                    color = Color(0xFF9586A8))
+            Box(
+                modifier = Modifier
+                    .height(49.dp)
+            ) {
+                FoodDescriptionText(
+                    name = stringResource(Res.string.search),
+                )
             }
-           },
+        },
     )
 }
