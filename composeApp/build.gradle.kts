@@ -45,6 +45,9 @@ kotlin {
             implementation(libs.navigation.compose)
             //coroutine
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0-RC")
+            implementation(platform("androidx.compose:compose-bom:2024.06.00"))
+
+
 
 
         }

@@ -13,8 +13,8 @@ fun App() {
     MaterialTheme {
       val navController = rememberNavController()
 //        FoodDetailsScreen()
-//        CategoryScreenRoot()
-        NavigationRoot(navController)
+        CategoryScreenRoot()
+//        NavigationRoot(navController)
 
     }
 }

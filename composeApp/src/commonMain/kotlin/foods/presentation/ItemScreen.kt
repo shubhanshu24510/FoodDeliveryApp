@@ -3,6 +3,7 @@
 package foods.presentation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -10,13 +11,22 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -99,13 +109,7 @@ fun CategoryScreenRoot(
                     modifier = Modifier.padding(horizontal = 5.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    ChipSelector(
-                        isSelected = false,
-                        text = "Сabbage and lettuce (14)",
-                        onChecked = {
-                            textChipRememberOneState.value = it
-                        }
-                    )
+                    FilterChip()
                 }
                 LazyColumn {
                     items(10) {
@@ -118,3 +122,36 @@ fun CategoryScreenRoot(
         },
     )
 }
+
+@Composable
+fun FilterChip() {
+    var selected by remember { mutableStateOf(false) }
+
+    FilterChip(
+        onClick = { selected = !selected },
+        label = {
+            Text("Filter chip")
+        },
+        modifier = Modifier.padding(8.dp)
+            .border(
+                width = 1.dp,
+                color = if (selected) FoodWhiteColor else Color.Transparent,
+                shape = RoundedCornerShape(percent = 50)
+            ) ,
+        shape = RoundedCornerShape(percent = 50),
+        selected = selected,
+        leadingIcon = if (selected) {
+            {
+                Icon(
+                    imageVector = Icons.Filled.Done,
+                    contentDescription = "Done icon",
+                    modifier = Modifier.size(FilterChipDefaults.IconSize)
+                )
+            }
+        } else {
+            null
+        },
+    )
+}
+
+
