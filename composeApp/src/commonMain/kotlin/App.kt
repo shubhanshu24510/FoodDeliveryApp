@@ -1,11 +1,8 @@
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navOptions
-import foods.presentation.CategoryScreenRoot
+import foods.presentation.CheckoutScreen
 import foods.presentation.FoodDetailsScreen
-import foods.presentation.HorizontalPagerTopBar
-import foods.presentation.SplashScreenRoot
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -13,10 +10,11 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 fun App() {
     MaterialTheme {
       val navController = rememberNavController()
-        HorizontalPagerTopBar()
+//        HorizontalPagerTopBar()
 //        FoodDetailsScreen()
-//        CategoryScreenRootRootoot()
+//        CategoryScreenRoot()
 //        NavigationRoot(navController)
+        CheckoutScreen()
 
     }
 }

@@ -1,18 +1,9 @@
-@file:OptIn(ExperimentalFoundationApi::class)
-
 package foods.presentation
 
-import androidx.compose.animation.core.FastOutLinearInEasing
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.rememberSplineBasedDecay
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,11 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.PageSize
-import androidx.compose.foundation.pager.PagerDefaults
-import androidx.compose.foundation.pager.PagerSnapDistance
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -39,7 +25,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -55,33 +40,28 @@ import fooddelivery.composeapp.generated.resources.boston_lettuce
 import fooddelivery.composeapp.generated.resources.descriptionNote
 import fooddelivery.composeapp.generated.resources.ic_heart
 import fooddelivery.composeapp.generated.resources.ic_shopping_cart
-import fooddelivery.composeapp.generated.resources.ic_vegetable
 import fooddelivery.composeapp.generated.resources.itemPrice
 import fooddelivery.composeapp.generated.resources.spain
 import fooddelivery.composeapp.generated.resources.spain_des
 import foods.presentation.components.FoodButton
 import foods.presentation.components.FoodButtonCard
+import foods.presentation.components.HorizontalPagerContent
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 
 @Composable
 fun FoodDetailsScreen(modifier: Modifier = Modifier) {
-    val state = rememberPagerState(pageCount = { 5 })
-//    HorizontalPager(
-//        state = state,
-//        pageContent = {
-//            Image(vectorResource(Res.drawable.ic_vegetable),
-//                contentDescription = null)
-//        }
-//
-//    )
-    Box(
-        modifier = Modifier.fillMaxSize()
-            .background(FoodBackGroundColor),
-        contentAlignment = Alignment.BottomCenter,
-    ) {
-        FoodDetailsCard()
+    Column(modifier = modifier) {
+//        HorizontalPagerContent()
 
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(FoodBackGroundColor),
+            contentAlignment = Alignment.BottomCenter,
+        ) {
+            FoodDetailsCard()
+        }
     }
 }
 

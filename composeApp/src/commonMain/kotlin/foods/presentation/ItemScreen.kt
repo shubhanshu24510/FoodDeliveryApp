@@ -2,6 +2,7 @@
 
 package foods.presentation
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -23,6 +24,7 @@ import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SelectableChipColors
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -33,6 +35,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import designSystem.FoodBackGroundColor
+import designSystem.FoodSelectedBackgroundViolet
+import designSystem.FoodSelectedVioletColor
+import designSystem.FoodTextSecondaryColor
 import designSystem.FoodWhiteColor
 import fooddelivery.composeapp.generated.resources.Res
 import fooddelivery.composeapp.generated.resources.ic_home_grid
@@ -105,12 +110,17 @@ fun CategoryScreenRoot(
                 modifier = Modifier
                     .padding(paddingValues = PaddingValues(top = 200.dp)),
             ) {
-                FlowRow(
-                    modifier = Modifier.padding(horizontal = 5.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    FilterChip()
-                }
+                    FlowRow {
+                        LazyRow {
+                            items(count = 5){
+                                FilterChip(
+                                    itemsName = "Сabbage and lettuce (14)"
+                                )
+                            }
+                        }
+
+                    }
+
                 LazyColumn {
                     items(10) {
                         FoodItemCard(
@@ -124,20 +134,24 @@ fun CategoryScreenRoot(
 }
 
 @Composable
-fun FilterChip() {
+fun FilterChip(
+    itemsName:String
+) {
     var selected by remember { mutableStateOf(false) }
 
     FilterChip(
         onClick = { selected = !selected },
         label = {
-            Text("Filter chip")
+            Text(text = itemsName,
+                color = if (selected) FoodSelectedVioletColor else FoodTextSecondaryColor
+            )
         },
-        modifier = Modifier.padding(8.dp)
-            .border(
-                width = 1.dp,
-                color = if (selected) FoodWhiteColor else Color.Transparent,
-                shape = RoundedCornerShape(percent = 50)
-            ) ,
+        border = BorderStroke(
+            width = 1.dp,
+            color = FoodWhiteColor,
+        ),
+        colors = FilterChipDefaults.filterChipColors(if (selected) FoodSelectedVioletColor else FoodWhiteColor),
+        modifier = Modifier.padding(8.dp),
         shape = RoundedCornerShape(percent = 50),
         selected = selected,
         leadingIcon = if (selected) {
