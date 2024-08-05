@@ -53,12 +53,14 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 fun FoodItemCard(modifier: Modifier = Modifier,
                  onClick: () -> Unit = {}) {
-    Box {
+    Box(
+        modifier = modifier
+    ) {
         Card(
             modifier = modifier
                 .clickable { onClick() }
                 .fillMaxWidth()
-                .padding(horizontal = 10.dp, vertical = 5.dp)
+                .padding(horizontal = 10.dp, vertical = 1.dp)
                 .height(160.dp),
 //            elevation = CardDefaults.cardElevation(defaultElevation = 3.dp),
             shape = MaterialTheme.shapes.medium,

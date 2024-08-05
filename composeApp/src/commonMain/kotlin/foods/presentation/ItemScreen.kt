@@ -121,10 +121,12 @@ fun CategoryScreenRoot(
 
                     }
 
-                LazyColumn {
+                LazyColumn(
+                    modifier = Modifier
+                ) {
                     items(10) {
                         FoodItemCard(
-                            onClick = onCardClick
+                            onClick = onCardClick,
                         )
                     }
                 }

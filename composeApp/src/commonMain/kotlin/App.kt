@@ -3,6 +3,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.rememberNavController
 import foods.presentation.CheckoutScreen
 import foods.presentation.FoodDetailsScreen
+import foods.presentation.HomeScreenRoot
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -10,11 +11,12 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 fun App() {
     MaterialTheme {
       val navController = rememberNavController()
+//        HomeScreenRoot()
 //        HorizontalPagerTopBar()
 //        FoodDetailsScreen()
 //        CategoryScreenRoot()
-//        NavigationRoot(navController)
-        CheckoutScreen()
+        NavigationRoot(navController)
+//        CheckoutScreen()
 
     }
 }

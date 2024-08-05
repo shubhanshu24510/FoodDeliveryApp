@@ -30,10 +30,18 @@ private fun NavGraphBuilder.foodGraph(
         composable(route = "splash") {
             SplashScreenRoot(
                 onDismissClick = {
-                    navController.navigate("home")
+                    navController.navigate("home"){
+                        popUpTo("splash"){
+                            inclusive =true
+                        }
+                    }
                 },
                 onOrderClick = {
-                    navController.navigate("home")
+                    navController.navigate("home"){
+                        popUpTo("splash"){
+                            inclusive =true
+                        }
+                    }
                 },
             )
         }

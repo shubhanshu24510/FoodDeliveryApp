@@ -36,7 +36,7 @@ fun CheckoutScreen() {
     Scaffold(
         topBar = {
             TopAppBar(
-//                title = { Text(stringResource(Res.string)) },
+                title = {  },
                 navigationIcon = {
                     IconButton(onClick = { /* handle back action */ }) {
                         Icon(

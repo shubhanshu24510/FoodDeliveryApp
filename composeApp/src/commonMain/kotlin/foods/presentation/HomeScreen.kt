@@ -5,6 +5,7 @@ package foods.presentation
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -110,7 +111,11 @@ fun HomeScreenRoot(
                 val cellCount = 2
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(cellCount),
+                    reverseLayout = true,
+                    flingBehavior = ScrollableDefaults.flingBehavior(),
+                    modifier = Modifier.padding(bottom = 70.dp),
                     horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    userScrollEnabled = true,
                     verticalArrangement = Arrangement.spacedBy(10.dp),
                     contentPadding = PaddingValues(8.dp)
                 ) {
