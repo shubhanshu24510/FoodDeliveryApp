@@ -15,7 +15,17 @@
     <string name="drinks">Drinks</string>
     <string name="quantity">(43)</string>
     <string name="itemPrice">€ / piece</string>
+    <string name="checkout">Checkout</string>
     <string name="spain">Spain</string>
+    <string name="payment_method">Payment method</string>
+    <string name="change">CHANGE</string>
+    <string name="delivery_address">Delivery address</string>
+    <string name="pick_myself">I’ll pick it up myself</string>
+    <string name="pick_courier">By courier</string>
+    <string name="pick_by_drone">By Drone</string>
+    <string name="yes">YES</string>
+    <string name="delivery_options">Delivery options</string>
+    <string name="non_contact_delivery">Non-contact-delivery</string>
     <string name="add_to_cart">ADD TO CART</string>
     <string name="spain_des">Lettuce is an annual plant of the daisy family, Asteraceae. It is most often grown as a leaf vegetable, but sometimes for its stem and seeds. Lettuce is most often used for salads, although it is also seen in other kinds of food, such as soups, sandwiches and wraps; it can also be grilled.</string>
     <string name="boston_lettuce">Boston Lettuce</string>

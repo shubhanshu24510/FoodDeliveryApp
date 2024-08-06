@@ -28,7 +28,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.traceEventEnd
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -36,7 +35,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import designSystem.FoodTextPrimaryColor
 import designSystem.FoodTextSecondaryColor
 import designSystem.RobotoFontFamily
@@ -64,6 +62,7 @@ fun HomeScreenRoot(
         topBar = {
             FoodTopAppBar(
                 tital = stringResource(Res.string.categories),
+                icon = null,
             )
         },
         bottomBar = {
@@ -111,11 +110,9 @@ fun HomeScreenRoot(
                 val cellCount = 2
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(cellCount),
-                    reverseLayout = true,
                     flingBehavior = ScrollableDefaults.flingBehavior(),
-                    modifier = Modifier.padding(bottom = 70.dp),
+                    modifier = Modifier.padding(bottom = 90.dp),
                     horizontalArrangement = Arrangement.spacedBy(10.dp),
-                    userScrollEnabled = true,
                     verticalArrangement = Arrangement.spacedBy(10.dp),
                     contentPadding = PaddingValues(8.dp)
                 ) {

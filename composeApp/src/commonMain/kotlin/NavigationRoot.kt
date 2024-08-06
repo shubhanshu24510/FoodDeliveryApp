@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import foods.presentation.CategoryScreenRoot
+import foods.presentation.CheckoutScreen
 import foods.presentation.FoodDetailsScreen
 import foods.presentation.HomeScreenRoot
 import foods.presentation.SplashScreenRoot
@@ -18,6 +19,8 @@ fun NavigationRoot(
         startDestination = "food"
     ) {
         foodGraph(navController)
+        paymentGraph(navController)
+
     }
 }
 
@@ -30,16 +33,16 @@ private fun NavGraphBuilder.foodGraph(
         composable(route = "splash") {
             SplashScreenRoot(
                 onDismissClick = {
-                    navController.navigate("home"){
-                        popUpTo("splash"){
-                            inclusive =true
+                    navController.navigate("home") {
+                        popUpTo("splash") {
+                            inclusive = true
                         }
                     }
                 },
                 onOrderClick = {
-                    navController.navigate("home"){
-                        popUpTo("splash"){
-                            inclusive =true
+                    navController.navigate("home") {
+                        popUpTo("splash") {
+                            inclusive = true
                         }
                     }
                 },
@@ -55,10 +58,7 @@ private fun NavGraphBuilder.foodGraph(
                 },
             )
         }
-        composable(route = "details") {
-           FoodDetailsScreen()
-        }
-        composable(route = "Categaries"){
+        composable(route = "Categaries") {
             CategoryScreenRoot(
                 onBackClick = {
                     navController.navigate("home")
@@ -68,5 +68,32 @@ private fun NavGraphBuilder.foodGraph(
                 }
             )
         }
+        composable(route = "details") {
+            FoodDetailsScreen(
+                onPickCartClick = {
+                    navController.navigate("Payment")
+                }
+            )
+        }
     }
 }
+
+
+private fun NavGraphBuilder.paymentGraph(
+    navController: NavHostController
+) {
+    navigation(
+        startDestination = "check", route = "Payment"
+    ) {
+        composable(route = "check") {
+            CheckoutScreen(
+            )
+        }
+
+        composable(route = "card") {
+
+        }
+    }
+}
+
+

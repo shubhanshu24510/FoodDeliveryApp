@@ -4,17 +4,17 @@ package foods.presentation
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
@@ -24,7 +24,6 @@ import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SelectableChipColors
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -33,20 +32,21 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.Placeable
+import androidx.compose.ui.layout.SubcomposeLayout
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import designSystem.FoodBackGroundColor
-import designSystem.FoodSelectedBackgroundViolet
 import designSystem.FoodSelectedVioletColor
 import designSystem.FoodTextSecondaryColor
 import designSystem.FoodWhiteColor
 import fooddelivery.composeapp.generated.resources.Res
+import fooddelivery.composeapp.generated.resources.ic_back_arrow
 import fooddelivery.composeapp.generated.resources.ic_home_grid
 import fooddelivery.composeapp.generated.resources.ic_shopping_cart
 import fooddelivery.composeapp.generated.resources.ic_user
-import fooddelivery.composeapp.generated.resources.ic_vegetable
 import fooddelivery.composeapp.generated.resources.vegetables
-import foods.presentation.components.Chip
-import foods.presentation.components.ChipSelector
 import foods.presentation.components.FoodItemCard
 import foods.presentation.components.FoodTopAppBar
 import org.jetbrains.compose.resources.stringResource
@@ -66,6 +66,7 @@ fun CategoryScreenRoot(
         topBar = {
             FoodTopAppBar(
                 onSearchClick = {},
+                icon = vectorResource(Res.drawable.ic_back_arrow),
                 onBackClick = onBackClick,
                 tital = stringResource(Res.string.vegetables)
             )
@@ -110,19 +111,17 @@ fun CategoryScreenRoot(
                 modifier = Modifier
                     .padding(paddingValues = PaddingValues(top = 200.dp)),
             ) {
-                    FlowRow {
-                        LazyRow {
-                            items(count = 5){
-                                FilterChip(
-                                    itemsName = "Сabbage and lettuce (14)"
-                                )
-                            }
+                FlowRow {
+                    LazyRow {
+                        items(10) {
+                            FoodFilterChip(
+                                itemsName = "Сabbage and lettuce (14)"
+                            )
                         }
-
                     }
-
+                }
                 LazyColumn(
-                    modifier = Modifier
+                    modifier = Modifier.padding(bottom = 80.dp)
                 ) {
                     items(10) {
                         FoodItemCard(
@@ -136,15 +135,16 @@ fun CategoryScreenRoot(
 }
 
 @Composable
-fun FilterChip(
-    itemsName:String
+fun FoodFilterChip(
+    itemsName: String
 ) {
     var selected by remember { mutableStateOf(false) }
 
     FilterChip(
         onClick = { selected = !selected },
         label = {
-            Text(text = itemsName,
+            Text(
+                text = itemsName,
                 color = if (selected) FoodSelectedVioletColor else FoodTextSecondaryColor
             )
         },
@@ -168,6 +168,72 @@ fun FilterChip(
             null
         },
     )
+}
+
+@Composable
+fun ChipVerticalGrid(
+    modifier: Modifier = Modifier,
+    spacing: Dp,
+    moreItemsView: @Composable (Int) -> Unit,
+    content: @Composable () -> Unit,
+) {
+    SubcomposeLayout(
+        modifier = modifier
+    ) { constraints ->
+        val contentConstraints = constraints.copy(minWidth = 0, minHeight = 0)
+        var currentRow = 0
+        var currentOrigin = IntOffset.Zero
+        val spacingValue = spacing.toPx().toInt()
+        val mainMeasurables = subcompose("content", content)
+        val placeables = mutableListOf<Pair<Placeable, IntOffset>>()
+        for (i in mainMeasurables.indices) {
+            val measurable = mainMeasurables[i]
+            val placeable = measurable.measure(contentConstraints)
+
+            fun Placeable.didOverflowWidth() =
+                currentOrigin.x > 0f && currentOrigin.x + width > contentConstraints.maxWidth
+
+            if (placeable.didOverflowWidth()) {
+                currentRow += 1
+                val nextRowOffset = currentOrigin.y + placeable.height + spacingValue
+
+                if (nextRowOffset + placeable.height > contentConstraints.maxHeight) {
+                    var morePlaceable: Placeable
+                    do {
+                        val itemsLeft = mainMeasurables.count() - placeables.count()
+
+                        morePlaceable = subcompose(itemsLeft) {
+                            moreItemsView(itemsLeft)
+                        }[0].measure(contentConstraints)
+                        val didOverflowWidth = morePlaceable.didOverflowWidth()
+                        if (didOverflowWidth) {
+                            val removed = placeables.removeLast()
+                            currentOrigin = removed.second
+                        }
+                    } while (didOverflowWidth)
+                    placeables.add(morePlaceable to currentOrigin)
+                    break
+                }
+                currentOrigin = currentOrigin.copy(x = 0, y = nextRowOffset)
+            }
+
+            placeables.add(placeable to currentOrigin)
+            currentOrigin = currentOrigin.copy(x = currentOrigin.x + placeable.width + spacingValue)
+        }
+        layout(
+            width = maxOf(
+                constraints.minWidth,
+                placeables.maxOfOrNull { it.first.width + it.second.x } ?: 0),
+            height = maxOf(
+                constraints.minHeight,
+                placeables.lastOrNull()?.run { first.height + second.y } ?: 0),
+        ) {
+            placeables.forEach {
+                val (placeable, origin) = it
+                placeable.place(origin.x, origin.y)
+            }
+        }
+    }
 }
 
 
