@@ -38,6 +38,7 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
+            implementation(compose.material)
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
@@ -46,8 +47,9 @@ kotlin {
             //coroutine
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0-RC")
             implementation(platform("androidx.compose:compose-bom:2024.06.00"))
+            implementation("androidx.annotation:annotation:1.8.1")
 
-
+            implementation("media.kamel:kamel-image:0.9.5")
 
 
         }
@@ -92,5 +94,7 @@ android {
 }
 dependencies {
     implementation(libs.androidx.ui.android)
+    implementation(libs.androidx.annotation.jvm)
+    implementation(libs.androidx.constraintlayout)
 }
 

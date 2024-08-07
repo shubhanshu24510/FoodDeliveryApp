@@ -66,7 +66,7 @@ fun HorizontalPagerContent() {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(320.dp)
+                .height(280.dp)
         ) {
             HorizontalPager(
                 state = pagerState,

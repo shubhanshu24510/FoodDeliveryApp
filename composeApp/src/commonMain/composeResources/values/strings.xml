@@ -24,6 +24,12 @@
     <string name="pick_courier">By courier</string>
     <string name="pick_by_drone">By Drone</string>
     <string name="yes">YES</string>
+    <string name="cvc">CVC</string>
+    <string name="use_this_card">USE THIS CARD</string>
+    <string name="credit_debit">Credit / Debit card</string>
+    <string name="name_on_card">Name on card</string>
+    <string name="expiry_date">Expiry date</string>
+    <string name="card_number">Card Number</string>
     <string name="delivery_options">Delivery options</string>
     <string name="non_contact_delivery">Non-contact-delivery</string>
     <string name="add_to_cart">ADD TO CART</string>

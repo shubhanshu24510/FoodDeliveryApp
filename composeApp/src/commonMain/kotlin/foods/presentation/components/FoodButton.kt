@@ -3,6 +3,7 @@ package foods.presentation.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -41,9 +42,9 @@ fun FoodButton(
         shape = RoundedCornerShape(size = 8.dp),
         border = BorderStroke(width = 1.dp, color = Color.Transparent),
         elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp),
-        modifier = Modifier.width(374.dp)
+        modifier = Modifier.fillMaxWidth()
             .height(56.dp)
-            .padding(horizontal = 4.dp, vertical = 4.dp),
+            .padding(horizontal = 13.dp, vertical = 4.dp),
         colors = ButtonDefaults.buttonColors(Color(0xFF0BCE83)),
         content = {
             Row(modifier = Modifier) {

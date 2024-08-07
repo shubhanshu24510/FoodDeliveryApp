@@ -3,7 +3,6 @@
 package foods.presentation
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,35 +13,25 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import designSystem.FoodBackGroundColor
@@ -57,18 +46,14 @@ import fooddelivery.composeapp.generated.resources.boston_lettuce
 import fooddelivery.composeapp.generated.resources.descriptionNote
 import fooddelivery.composeapp.generated.resources.ic_heart
 import fooddelivery.composeapp.generated.resources.ic_shopping_cart
-import fooddelivery.composeapp.generated.resources.ic_vegetable
 import fooddelivery.composeapp.generated.resources.itemPrice
 import fooddelivery.composeapp.generated.resources.spain
 import fooddelivery.composeapp.generated.resources.spain_des
 import foods.presentation.components.FoodButton
 import foods.presentation.components.FoodButtonCard
 import foods.presentation.components.HorizontalPagerContent
-import org.jetbrains.compose.resources.imageResource
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
-import kotlin.math.absoluteValue
 
 @Composable
 fun FoodDetailsScreen(
@@ -83,7 +68,7 @@ fun FoodDetailsScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(FoodBackGroundColor),
+                .background(FoodWhiteColor),
             contentAlignment = Alignment.BottomCenter,
         ) {
             FoodDetailsCard(
@@ -101,16 +86,18 @@ fun FoodDetailsCard(
     Card(
         modifier = Modifier
             .fillMaxWidth(),
-        shape = RoundedCornerShape(topStart = 33.dp, topEnd = 33.dp),
-        colors = CardDefaults.cardColors(containerColor = FoodBackGroundColor)
+        shape = RoundedCornerShape(topStart = 21.dp, topEnd = 33.dp),
+        colors = CardDefaults.cardColors(containerColor = FoodWhiteColor)
     ) {
         Column(
             modifier = Modifier
-                .padding(horizontal = 20.dp, vertical = 30.dp)
+                .weight(1f)
+                .padding(horizontal = 20.dp)
+                .padding(top = 40.dp)
                 .fillMaxWidth()
         ) {
             Box(
-                modifier = Modifier.padding(vertical = 20.dp,
+                modifier = Modifier.padding(
                     horizontal = 3.dp)
             ) {
                 FoodDetailsText(
@@ -120,7 +107,7 @@ fun FoodDetailsCard(
                     color = FoodTextPrimaryColor
                 )
             }
-            Column(modifier = Modifier.padding(horizontal = 3.dp)) {
+            Column(modifier = Modifier.padding(horizontal = 3.dp, vertical = 12.dp)) {
                 FoodDetailsText(
                     name = stringResource(Res.string.itemPrice),
                     fontSize = 24.sp,
@@ -136,7 +123,7 @@ fun FoodDetailsCard(
                     color = FoodPrimaryButtonColor
                 )
             }
-            Spacer(Modifier.height(45.dp))
+            Spacer(Modifier.height(25.dp))
             Box(modifier = Modifier.padding(horizontal = 3.dp)) {
                 FoodDetailsText(
                     name = stringResource(Res.string.spain),
@@ -148,7 +135,6 @@ fun FoodDetailsCard(
             Box(
                 modifier = Modifier
                     .padding(vertical = 20.dp, horizontal = 3.dp)
-//                    .padding(bottom = 40.dp)
                     .width(373.dp)
             ) {
                 Column(
@@ -160,7 +146,7 @@ fun FoodDetailsCard(
                         style = MaterialTheme.typography.bodyMedium.copy(
                             color = FoodTextSecondaryColor,
                             fontSize = 17.sp,
-                            letterSpacing = 0.9.sp,
+                            lineHeight = TextUnit(22f, TextUnitType.Sp),
                             fontStyle = FontStyle.Normal,
                             fontWeight = FontWeight.Normal,
                         ),
@@ -172,7 +158,7 @@ fun FoodDetailsCard(
                     )
                 }
             }
-            Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(35.dp))
 
             Row(
                 horizontalArrangement = Arrangement.SpaceEvenly,
@@ -218,6 +204,7 @@ fun FoodDetailsText(
             fontWeight = fontWeight,
             softWrap = true,
             color = color,
+//            lineHeight = TextUnit(25f, TextUnitType.Sp),
             fontFamily = RobotoFontFamily(),
             textAlign = TextAlign.Center,
         )

@@ -15,6 +15,7 @@ junit = "4.13.2"
 kotlin = "2.0.0"
 navigationCompose = "2.7.0-alpha07"
 uiAndroid = "1.6.8"
+annotationJvm = "1.8.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -29,6 +30,7 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 androidx-ui-android = { group = "androidx.compose.ui", name = "ui-android", version.ref = "uiAndroid" }
 navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+androidx-annotation-jvm = { group = "androidx.annotation", name = "annotation-jvm", version.ref = "annotationJvm" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -5,13 +5,14 @@
 
 package foods.presentation
 
-
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.*
@@ -30,11 +31,14 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import designSystem.FoodBackGroundColor
@@ -68,11 +72,9 @@ import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-
 @Composable
 fun CheckoutScreen() {
     val nonContactDelivery = remember { mutableStateOf(true) }
-
     Scaffold(
         containerColor = FoodBackGroundColor,
         topBar = {
@@ -211,7 +213,10 @@ fun CardSection(
     var isEditable by remember { mutableStateOf(false) }
     var textFieldValue by remember { mutableStateOf(initialValue) }
 
-    Column {
+    Column(
+        modifier = Modifier
+    ) {
+        //Payment Title
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
@@ -236,7 +241,6 @@ fun CardSection(
                                 color = FoodTextPrimaryColor
                             )
                         )
-
                         Text(
                             text = stringResource(Res.string.change),
                             style = TextStyle.Default.copy(
@@ -254,6 +258,7 @@ fun CardSection(
                         )
                     }
                     Spacer(modifier = Modifier.height(20.dp))
+                    //Payment Value
                     Row(
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically
@@ -268,124 +273,107 @@ fun CardSection(
                         }
                         Spacer(modifier = Modifier.width(25.dp))
                         Box {
-                            if (isEditable) {
-                                TextField(
-                                    value = textFieldValue,
-                                    onValueChange = { newValue ->
-                                        if (newValue.length <= 16 && newValue.all { it.isDigit() }) {
-                                            textFieldValue = newValue
-                                        }
-                                    },
-                                    textStyle = TextStyle.Default.copy(
-                                        fontSize = 17.sp,
-                                        fontWeight = FontWeight.Normal,
-                                        fontFamily = RobotoFontFamily(),
-                                        textAlign = TextAlign.Center,
-                                        color = FoodTextSecondaryColor
-                                    ),
-                                    modifier = Modifier.fillMaxWidth()
-                                )
-                            } else {
-                                Text(
-                                    textFieldValue,
-                                    color = Color.Gray,
-                                    overflow = TextOverflow.Visible,
-                                    style = TextStyle.Default.copy(
-                                        fontSize = 17.sp,
-                                        fontWeight = FontWeight.Normal,
-                                        fontFamily = RobotoFontFamily(),
-                                        textAlign = TextAlign.Center,
-                                        color = FoodTextSecondaryColor
-                                    ),
-                                )
-                            }
+                            Text(
+                                textFieldValue,
+                                color = Color.Gray,
+                                overflow = TextOverflow.Visible,
+                                style = TextStyle.Default.copy(
+                                    fontSize = 17.sp,
+                                    lineHeight = TextUnit(25f, TextUnitType.Sp),
+                                    fontWeight = FontWeight.Normal,
+                                    fontFamily = RobotoFontFamily(),
+                                    textAlign = TextAlign.Start,
+                                    color = FoodTextSecondaryColor
+                                ),
+                            )
+
                         }
                     }
                 }
             }
         }
+        content?.invoke()
     }
-    content?.invoke()
 }
 
-@Composable
-fun DeliveryOption(
-    option: String,
-    icon: Painter,
-    selected: Boolean,
-    onClick: () -> Unit
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { onClick() }
-            .background(if (selected) FoodSelectedBackgroundViolet else FoodBackGroundColor)
-            .padding(10.dp),
-        verticalAlignment = Alignment.CenterVertically
+    @Composable
+    fun DeliveryOption(
+        option: String,
+        icon: Painter,
+        selected: Boolean,
+        onClick: () -> Unit
     ) {
-        Icon(
-            painter = icon,
-            contentDescription = null,
-            modifier = Modifier.size(24.dp),
-            tint = if (selected) FoodSelectedVioletColor else FoodTextSecondaryColor
-        )
-
-        Spacer(modifier = Modifier.width(25.dp))
-
-        Text(
-            text = option,
-            style = TextStyle.Default.copy(
-                fontSize = 17.sp,
-                textAlign = TextAlign.Center,
-                fontFamily = RobotoFontFamily(),
-                fontWeight = FontWeight.Normal,
-                color = if (selected) FoodSelectedVioletColor else FoodTextSecondaryColor
-            )
-        )
-
-        if (selected) {
-            Spacer(modifier = Modifier.weight(1f))
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { onClick() }
+                .background(if (selected) FoodSelectedBackgroundViolet else FoodBackGroundColor)
+                .padding(10.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Icon(
-                painter = painterResource(Res.drawable.ic_checj),
+                painter = icon,
                 contentDescription = null,
                 modifier = Modifier.size(24.dp),
-                tint = FoodSelectedVioletColor
+                tint = if (selected) FoodSelectedVioletColor else FoodTextSecondaryColor
             )
+
+            Spacer(modifier = Modifier.width(25.dp))
+
+            Text(
+                text = option,
+                style = TextStyle.Default.copy(
+                    fontSize = 17.sp,
+                    textAlign = TextAlign.Center,
+                    fontFamily = RobotoFontFamily(),
+                    fontWeight = FontWeight.Normal,
+                    color = if (selected) FoodSelectedVioletColor else FoodTextSecondaryColor
+                )
+            )
+
+            if (selected) {
+                Spacer(modifier = Modifier.weight(1f))
+                Icon(
+                    painter = painterResource(Res.drawable.ic_checj),
+                    contentDescription = null,
+                    modifier = Modifier.size(24.dp),
+                    tint = FoodSelectedVioletColor
+                )
+            }
         }
     }
-}
 
-@Composable
-fun NonContactDeliverySwitch(
-    checked: Boolean,
-    onCheckedChange: (Boolean) -> Unit
-) {
-    Row(
-        modifier = Modifier.fillMaxWidth()
-            .padding(start = 10.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+    @Composable
+    fun NonContactDeliverySwitch(
+        checked: Boolean,
+        onCheckedChange: (Boolean) -> Unit
     ) {
-        Text(
-            text = stringResource(Res.string.non_contact_delivery),
-            style = TextStyle.Default.copy(
-                fontSize = 22.sp,
-                textAlign = TextAlign.Center,
-                fontFamily = RobotoFontFamily(),
-                fontWeight = FontWeight.Bold,
-                color = FoodTextPrimaryColor,
+        Row(
+            modifier = Modifier.fillMaxWidth()
+                .padding(start = 10.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = stringResource(Res.string.non_contact_delivery),
+                style = TextStyle.Default.copy(
+                    fontSize = 22.sp,
+                    textAlign = TextAlign.Center,
+                    fontFamily = RobotoFontFamily(),
+                    fontWeight = FontWeight.Bold,
+                    color = FoodTextPrimaryColor,
+                )
             )
-        )
-        var checked by remember { mutableStateOf(true) }
+            var checked by remember { mutableStateOf(true) }
 
-        Switch(
-            modifier = Modifier
-                .size(width = 74.dp, height = 30.dp)
-                .border(BorderStroke(width = 0.dp, color = Color.White))
-                .semantics { contentDescription = "Demo with icon" },
-            checked = checked,
-            onCheckedChange = { checked = it },
-            colors = SwitchDefaults.colors(FoodWhiteColor),
+            Switch(
+                modifier = Modifier
+                    .size(width = 74.dp, height = 30.dp)
+                    .border(BorderStroke(width = 0.dp, color = Color.White))
+                    .semantics { contentDescription = "Demo with icon" },
+                checked = checked,
+                onCheckedChange = { checked = it },
+                colors = SwitchDefaults.colors(FoodWhiteColor),
 //            thumbContent = {
 //                if (checked) {
 //                    Icon(
@@ -395,44 +383,45 @@ fun NonContactDeliverySwitch(
 //                    )
 //                }
 //            }
-        )
-    }
-}
-
-@Composable
-fun CheckoutTitleOption(
-    title: String,
-    icon: ImageVector?,
-    onChangeClick: () -> Unit,
-    content: @Composable() (() -> Unit)? = null
-) {
-    Row(
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth()
-            .padding(start = 10.dp)
-    ) {
-        Text(
-            title,
-            style = TextStyle.Default.copy(
-                fontSize = 22.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = RobotoFontFamily(),
-                textAlign = TextAlign.Center,
-                color = FoodTextPrimaryColor
             )
-        )
-        Text(
-            text = stringResource(Res.string.change),
-            style = TextStyle.Default.copy(
-                fontSize = 15.sp,
-                fontWeight = FontWeight.SemiBold,
-                fontFamily = RobotoFontFamily(),
-                textAlign = TextAlign.Center,
-                color = FoodSelectedVioletColor
-            ),
-            color = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.clickable(onClick = onChangeClick)
-        )
+        }
     }
-}
+
+    @Composable
+    fun CheckoutTitleOption(
+        title: String,
+        icon: ImageVector?,
+        onChangeClick: () -> Unit,
+        content: @Composable() (() -> Unit)? = null
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth()
+                .padding(start = 10.dp)
+        ) {
+            Text(
+                title,
+                style = TextStyle.Default.copy(
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = RobotoFontFamily(),
+                    textAlign = TextAlign.Center,
+                    color = FoodTextPrimaryColor
+                )
+            )
+            Text(
+                text = stringResource(Res.string.change),
+                style = TextStyle.Default.copy(
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    fontFamily = RobotoFontFamily(),
+                    textAlign = TextAlign.Center,
+                    color = FoodSelectedVioletColor
+                ),
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.clickable(onClick = onChangeClick)
+            )
+        }
+    }
+
