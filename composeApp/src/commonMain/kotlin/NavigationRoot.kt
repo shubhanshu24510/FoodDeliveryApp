@@ -4,11 +4,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import foods.presentation.CategoryScreenRoot
-import foods.presentation.CheckoutScreen
-import foods.presentation.FoodDetailsScreen
-import foods.presentation.HomeScreenRoot
-import foods.presentation.SplashScreenRoot
+import food.presentation.category.CategoryScreenRoot
+import payment.presentation.checkout.CheckoutScreen
+import food.presentation.details.FoodDetailsScreen
+import food.presentation.home.HomeScreenRoot
+import food.presentation.splash.SplashScreenRoot
+import payment.presentation.creditCard.CardDetailsScreenRoot
 
 @Composable
 fun NavigationRoot(
@@ -50,6 +51,9 @@ private fun NavGraphBuilder.foodGraph(
         }
         composable(route = "home") {
             HomeScreenRoot(
+                onCartClick = {
+                    navController.navigate("Payment")
+                },
                 onHomeClick = {
                     navController.navigate("home")
                 },
@@ -60,6 +64,12 @@ private fun NavGraphBuilder.foodGraph(
         }
         composable(route = "Categaries") {
             CategoryScreenRoot(
+                onHomeClick = {
+                    navController.navigate("home")
+                },
+                onCartClick = {
+                    navController.navigate("Payment")
+                },
                 onBackClick = {
                     navController.navigate("home")
                 },
@@ -87,10 +97,23 @@ private fun NavGraphBuilder.paymentGraph(
     ) {
         composable(route = "check") {
             CheckoutScreen(
+                onHomeClick = {
+                    navController.navigate("home")
+                },
+                onCartClick = {
+                    navController.navigate("Payment")
+                },
+                onChangeClick = {
+                    navController.navigate("card")
+                }
             )
         }
-
         composable(route = "card") {
+            CardDetailsScreenRoot(
+                onBackClick = {
+                    navController.navigate("check")
+                }
+            )
 
         }
     }
