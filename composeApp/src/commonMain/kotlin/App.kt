@@ -14,14 +14,6 @@ import payment.presentation.creditCard.CardDetailsScreenRoot
 fun App() {
     MaterialTheme {
         val navController = rememberNavController()
-//        HomeScreenRoot()
-//        HorizontalPagerTopBar()
-//        FoodDetailsScreen()
-//        CategoryScreenRoot()
-//        CheckoutScreen()
         NavigationRoot(navController)
-//        CardDetailsScreenRoot()
-//        SplashScreenRoot()
-
     }
 }

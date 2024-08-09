@@ -1,12 +1,11 @@
 @file:OptIn(
     ExperimentalMaterial3Api::class,
-    ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class,
+    ExperimentalMaterial3Api::class,
     ExperimentalMaterial3Api::class
 )
 
 package payment.presentation.creditCard
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -19,12 +18,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.text2.input.TextFieldCharSequence
-import androidx.compose.foundation.text2.input.TextFieldState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -33,10 +29,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -45,11 +38,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModel
 import designSystem.FoodBackGroundColor
 import designSystem.FoodTextPrimaryColor
 import designSystem.FoodTextSecondaryColor
-import designSystem.RobotoFontFamily
+import food.presentation.utils.FoodButton
 import fooddelivery.composeapp.generated.resources.Res
 import fooddelivery.composeapp.generated.resources.card_number
 import fooddelivery.composeapp.generated.resources.credit_debit
@@ -61,9 +53,6 @@ import fooddelivery.composeapp.generated.resources.ic_mc_symbol_img
 import fooddelivery.composeapp.generated.resources.ic_take_a_photo_icon
 import fooddelivery.composeapp.generated.resources.name_on_card
 import fooddelivery.composeapp.generated.resources.use_this_card
-import food.presentation.utils.FoodButton
-import food.presentation.utils.FoodTopAppBar
-import fooddelivery.composeapp.generated.resources.categories
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
@@ -72,7 +61,7 @@ import payment.presentation.utils.FoodCardOutlinedTextField
 
 @Composable
 fun CardDetailsScreenRoot(
-    viewModel: CardViewModel =CardViewModel(),
+    viewModel: CardViewModel = CardViewModel(),
     onBackClick: () -> Unit = {}
 ) {
     val state by viewModel.state.collectAsState()
@@ -85,6 +74,7 @@ fun CardDetailsScreenRoot(
                 CardDetailsAction.onBackClick -> {
                     onBackClick()
                 }
+
                 is CardDetailsAction.UpdateCardHolderName -> viewModel.onEvent(action)
                 is CardDetailsAction.UpdateCardNumber -> viewModel.onEvent(action)
                 is CardDetailsAction.UpdateExpiryDate -> viewModel.onEvent(action)
@@ -125,7 +115,7 @@ fun CardDetailsScreen(
                 .padding(innerPadding)
                 .padding(horizontal = 15.dp)
                 .fillMaxSize(),
-            ) {
+        ) {
             Row(
                 modifier = Modifier.padding(start = 10.dp, bottom = 18.dp)
             ) {
@@ -140,17 +130,24 @@ fun CardDetailsScreen(
                     )
                 )
             }
-
             BankCardUi(
-                modifier = Modifier.padding(5.dp),
-                baseColor = Color(0xFFB993D6),
-                cardNumber = state.cardNumber.ifEmpty { "4747  4747  4747  4747" },
-                cardHolder = state.cardHolderName.ifEmpty { "FULL NAME" },
-                expires = state.expiryDate.ifEmpty { "MM/YY" },
-                cvv = state.cvv.ifEmpty { "CVC" },
-                brand = "YOUR BRAND"  // Placeholder for card brand
+                modifier = Modifier,
+                baseColor = Color(0xFFFF9800),
+                cardNumber = "4747  4747  4747  4747",
+                cardHolder = "FULL NAME",
+                expires = "MM/YY",
+                cvv = "901",
+                brand = "WISA"
             )
-
+//            BankCardUi(
+//                modifier = Modifier.padding(5.dp),
+//                baseColor = Color(0xFFB993D6),
+//                cardNumber = state.cardNumber.ifEmpty { "4747  4747  4747  4747" },
+//                cardHolder = state.cardHolderName.ifEmpty { "FULL NAME" },
+//                expires = state.expiryDate.ifEmpty { "MM/YY" },
+//                cvv = state.cvv.ifEmpty { "CVC" },
+//                brand = "YOUR BRAND"
+//            )
             // Camera Scanner
             Box(
                 modifier = Modifier

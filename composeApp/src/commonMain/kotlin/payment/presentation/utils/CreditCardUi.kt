@@ -28,7 +28,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -108,7 +107,7 @@ fun SpaceWrapper(
     right: Boolean = false,
     bottom: Boolean = false,
     left: Boolean = false,
-    content: @Composable BoxScope.() -> Unit
+    content:@Composable BoxScope.() -> Unit
 ) {
     Box(
         contentAlignment = Alignment.Center,
@@ -139,7 +138,7 @@ fun BankCardLabelAndText(
                 fontWeight = FontWeight.W300,
                 fontSize = 20.sp,
                 letterSpacing = 1.sp,
-                color = Color.White
+                color = FoodWhiteColor
             )
         )
         Spacer(modifier = Modifier.height(4.dp))
@@ -150,7 +149,7 @@ fun BankCardLabelAndText(
                 fontWeight = FontWeight.W400,
                 fontSize = 20.sp,
                 letterSpacing = 1.sp,
-                color = Color.White
+                color = FoodWhiteColor
             )
         )
     }
@@ -158,7 +157,8 @@ fun BankCardLabelAndText(
 
 @Composable
 fun BankCardNumber(
-    cardNumber: String) {
+    cardNumber: String
+) {
     Row(
         modifier = Modifier
             .fillMaxSize()
@@ -170,6 +170,7 @@ fun BankCardNumber(
         repeat(3) {
             BankCardDotGroup()
         }
+
 
         // Display the last four digits
         Text(
@@ -189,8 +190,8 @@ fun BankCardNumber(
 fun BankCardBackground(
     baseColor: Color
 ) {
-//    val colorSaturation75 = baseColor.setSaturation(0.75f)
-//    val colorSaturation50 = baseColor.setSaturation(0.5f)
+    val colorSaturation75 = baseColor.setSaturation(0.75f)
+    val colorSaturation50 = baseColor.setSaturation(0.5f)
     Canvas(
         modifier = Modifier
             .fillMaxSize()
@@ -198,8 +199,8 @@ fun BankCardBackground(
     ) {
         // Drawing Circles
         drawCircle(
-            color = Color(0xFF92A3DA).copy(alpha = 0.5f),
-//            color = colorSaturation75,
+//            color = Color(0xFF92A3DA).copy(alpha = 0.5f),
+            color = colorSaturation75,
             center = Offset(x = size.width * 0.9f, y = size.height * 0.5f),
             radius = size.minDimension * 0.85f
         )

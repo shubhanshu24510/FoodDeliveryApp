@@ -49,7 +49,7 @@ import designSystem.RobotoFontFamily
 
 @Composable
 fun FoodCardOutlinedTextField(
-    value: String = "",
+    value: String,
     onValueChange: (String) -> Unit = {},
     startIcon: ImageVector?,
     endIcon: Painter?,

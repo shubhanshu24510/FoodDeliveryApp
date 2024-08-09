@@ -1,4 +1,8 @@
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package payment.presentation.creditCard
+
+import androidx.compose.foundation.ExperimentalFoundationApi
 
 sealed class CardDetailsAction {
     data class UpdateCardHolderName(val newName: String) : CardDetailsAction()

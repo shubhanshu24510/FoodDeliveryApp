@@ -4,6 +4,7 @@ package payment.presentation.creditCard
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.text2.input.TextFieldState
+
 data class CardDetailsState(
     val cardHolderName: String = "",
     val cardNumber: String = "",
