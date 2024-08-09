@@ -51,14 +51,14 @@ private fun NavGraphBuilder.foodGraph(
         }
         composable(route = "home") {
             HomeScreenRoot(
-                onCartClick = {
-                    navController.navigate("Payment")
+                onCardClick = {
+                    navController.navigate("categaries")
                 },
                 onHomeClick = {
                     navController.navigate("home")
                 },
-                onCardClick = {
-                    navController.navigate("categaries")
+                onCartClick = {
+                    navController.navigate("Payment")
                 },
             )
         }

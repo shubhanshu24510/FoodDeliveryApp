@@ -1,6 +1,8 @@
 package food.presentation.category.components
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import designSystem.FoodSelectedVioletColor
 import designSystem.FoodTextSecondaryColor
 import designSystem.FoodWhiteColor
@@ -28,6 +31,9 @@ fun FoodFilterChip(
     var selected by remember { mutableStateOf(false) }
 
     FilterChip(
+        modifier = Modifier.fillMaxWidth()
+            .padding(horizontal = 6.dp)
+            .height(34.dp),
         onClick = { selected = !selected },
         label = {
             Text(
@@ -40,7 +46,6 @@ fun FoodFilterChip(
             color = FoodWhiteColor,
         ),
         colors = FilterChipDefaults.filterChipColors(if (selected) FoodSelectedVioletColor else FoodWhiteColor),
-        modifier = Modifier.padding(8.dp),
         shape = RoundedCornerShape(percent = 50),
         selected = selected,
         leadingIcon = if (selected) {

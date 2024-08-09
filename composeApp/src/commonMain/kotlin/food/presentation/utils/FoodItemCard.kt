@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -62,7 +63,6 @@ fun FoodItemCard(
                 .fillMaxWidth()
                 .padding(horizontal = 10.dp, vertical = 1.dp)
                 .height(160.dp),
-//            elevation = CardDefaults.cardElevation(defaultElevation = 3.dp),
             shape = MaterialTheme.shapes.medium,
             colors = CardDefaults.cardColors(FoodBackGroundColor)
         ) {
@@ -74,7 +74,6 @@ fun FoodItemCard(
             ) {
                 Image(
                     painter = painterResource(resource = destination.imageRes),
-//                    painter = painterResource(Res.drawable.boston_lettuce),
                     contentDescription = null,
                     modifier = Modifier
                         .size(width = 177.dp, height = 128.dp)
@@ -82,35 +81,42 @@ fun FoodItemCard(
                 )
                 Column(
                     modifier = Modifier
-                        .size(width = 177.dp, height = 128.dp)
-                        .padding(horizontal = 5.dp)
+                        .padding( horizontal = 10.dp)
                         .weight(1f)
                 ) {
                     Text(
                         text = destination.title,
-//                        text = stringResource(Res.string.boston_lettuce),
                         fontSize = 18.sp,
                         fontWeight = FontWeight.SemiBold,
-                        textAlign = TextAlign.Center,
-                        fontFamily = RobotoFontFamily(),
+                        textAlign = TextAlign.Justify,
+                        fontFamily = FontFamily.SansSerif,
                         style = TextStyle.Default,
                         color = FoodTextPrimaryColor,
-                        modifier = Modifier.padding(7.dp)
                     )
-                    Text(
-                        text = stringResource(Res.string.itemPrice),
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Normal,
-                        fontFamily = RobotoFontFamily(),
-                        color = FoodTextSecondaryColor,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.padding(horizontal = 8.dp)
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
                     Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceEvenly,
-                        verticalAlignment = Alignment.CenterVertically
+                        modifier =Modifier.padding(vertical = 14.dp)
+                    ) {
+                        Text(text = destination.price,
+                            style = TextStyle.Default.copy(
+                                fontSize = 22.sp,
+                                fontFamily = FontFamily.SansSerif,
+                                fontWeight = FontWeight.Bold,
+                                color = FoodTextPrimaryColor
+                            ))
+                        Text(
+                            text = stringResource(Res.string.itemPrice),
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Normal,
+                            fontFamily = RobotoFontFamily(),
+                            color = FoodTextSecondaryColor,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(horizontal = 8.dp)
+                        )
+                    }
+                    Row(
+                        modifier = Modifier.fillMaxWidth().padding(end = 10.dp),
+                        horizontalArrangement = Arrangement.SpaceAround,
+                        verticalAlignment = Alignment.Bottom,
                     ) {
                         FoodButtonCard(
                             icon = vectorResource(Res.drawable.ic_heart),

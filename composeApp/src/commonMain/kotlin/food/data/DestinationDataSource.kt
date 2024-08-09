@@ -13,16 +13,15 @@ import fooddelivery.composeapp.generated.resources.ic_pasta
 import fooddelivery.composeapp.generated.resources.ic_sweets
 import fooddelivery.composeapp.generated.resources.ic_vegetable
 
-
 class DestinationDataSource {
     fun loadData(): List<Destination> {
         return listOf(
-            Destination(imageRes = Res.drawable.ic_vegetable, title = "Vegetables"),
-            Destination(imageRes = Res.drawable.ic_fruit, title = "Fruits"),
-            Destination(imageRes = Res.drawable.ic_bread, title = "Bread"),
-            Destination(imageRes = Res.drawable.ic_sweets, title = "Sweets"),
-            Destination(imageRes = Res.drawable.ic_pasta, title = "Pasta"),
-            Destination(imageRes = Res.drawable.ic_drinks, title = "Drinks"),
+            Destination(imageRes = Res.drawable.ic_vegetable, title = "Vegetables", quantity = "(43)"),
+            Destination(imageRes = Res.drawable.ic_fruit, title = "Fruits", quantity = "(32)"),
+            Destination(imageRes = Res.drawable.ic_bread, title = "Bread", quantity = "(22)"),
+            Destination(imageRes = Res.drawable.ic_sweets, title = "Sweets", quantity = "(56)"),
+            Destination(imageRes = Res.drawable.ic_pasta, title = "Pasta", quantity = "(20)"),
+            Destination(imageRes = Res.drawable.ic_drinks, title = "Drinks", quantity = "(13)"),
         )
     }
 }
@@ -30,23 +29,10 @@ class DestinationDataSource {
 class ItemDestinationDataSources {
     fun loadData(): List<ItemDestination> {
         return listOf(
-            ItemDestination(imageRes = Res.drawable.ic_image_boston, title = "Boston Lettuce"),
-            ItemDestination(imageRes = Res.drawable.ic_image_cabbage, title = "Purple Cauliflower"),
-            ItemDestination(imageRes = Res.drawable.ic_image_cultiflower, title = "Savoy Cabbage"),
+            ItemDestination(imageRes = Res.drawable.ic_image_boston, title = "Boston Lettuce", price = "1.10"),
+            ItemDestination(imageRes = Res.drawable.ic_image_cabbage, title = "Purple Cauliflower","1.85"),
+            ItemDestination(imageRes = Res.drawable.ic_image_cultiflower, title = "Savoy Cabbage","1.45"),
         )
     }
 }
-//class DestinationDataSource {
-//    @Composable
-//    fun loadData(): List<Destination> {
-//        return listOf(
-//            Destination(stringResource( Res.string.vegetables), painterResource(Res.drawable.ic_vegetable)),
-//            Destination(stringResource( Res.string.fruits), painterResource(Res.drawable.ic_fruit)),
-//            Destination(stringResource( Res.string.bruits), painterResource(Res.drawable.ic_bread)),
-//            Destination(stringResource( Res.string.sweets), painterResource(Res.drawable.ic_sweets)),
-//            Destination(stringResource( Res.string.pasta), painterResource(Res.drawable.ic_pasta)),
-//            Destination(stringResource( Res.string.drinks), painterResource(Res.drawable.ic_drinks))
-//        )
-//    }
-//}
 

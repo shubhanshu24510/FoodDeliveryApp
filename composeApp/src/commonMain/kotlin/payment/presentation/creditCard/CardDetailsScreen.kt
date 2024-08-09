@@ -39,6 +39,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -61,6 +62,8 @@ import fooddelivery.composeapp.generated.resources.ic_take_a_photo_icon
 import fooddelivery.composeapp.generated.resources.name_on_card
 import fooddelivery.composeapp.generated.resources.use_this_card
 import food.presentation.utils.FoodButton
+import food.presentation.utils.FoodTopAppBar
+import fooddelivery.composeapp.generated.resources.categories
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
@@ -106,7 +109,7 @@ fun CardDetailsScreen(
                 navigationIcon = {
                     IconButton(
                         onClick = { onEvent(CardDetailsAction.onBackClick) },
-                        modifier = Modifier.padding(top = 20.dp)
+                        modifier = Modifier.padding(top = 10.dp)
                     ) {
                         Icon(
                             painterResource(Res.drawable.ic_back_arrow),
@@ -116,16 +119,15 @@ fun CardDetailsScreen(
                 }
             )
         },
-    ) { paddingValues ->
+    ) { innerPadding ->
         Column(
             modifier = Modifier
-                .padding(paddingValues)
+                .padding(innerPadding)
                 .padding(horizontal = 15.dp)
                 .fillMaxSize(),
-        ) {
-            // Credit / Debit card text
+            ) {
             Row(
-                modifier = Modifier.padding(start = 18.dp)
+                modifier = Modifier.padding(start = 10.dp, bottom = 18.dp)
             ) {
                 Text(
                     stringResource(Res.string.credit_debit),
@@ -133,7 +135,7 @@ fun CardDetailsScreen(
                         fontSize = 30.sp,
                         fontWeight = FontWeight.Bold,
                         color = FoodTextPrimaryColor,
-                        fontFamily = RobotoFontFamily(),
+                        fontFamily = FontFamily.SansSerif,
                         textAlign = TextAlign.Center
                     )
                 )
@@ -141,7 +143,7 @@ fun CardDetailsScreen(
 
             BankCardUi(
                 modifier = Modifier.padding(5.dp),
-                baseColor = Color(0xFFB993D6).copy(alpha = 0.5f),
+                baseColor = Color(0xFFB993D6),
                 cardNumber = state.cardNumber.ifEmpty { "4747  4747  4747  4747" },
                 cardHolder = state.cardHolderName.ifEmpty { "FULL NAME" },
                 expires = state.expiryDate.ifEmpty { "MM/YY" },
@@ -153,7 +155,7 @@ fun CardDetailsScreen(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 160.dp, vertical = 3.dp)
+                    .padding(horizontal = 160.dp, vertical = 1.dp)
                     .background(Color.Transparent)
                     .padding(16.dp)
             ) {
@@ -167,7 +169,6 @@ fun CardDetailsScreen(
                     contentDescription = null
                 )
             }
-
             // Name on card input field
             FoodCardOutlinedTextField(
                 value = state.cardHolderName,
@@ -180,7 +181,7 @@ fun CardDetailsScreen(
                 modifier = Modifier.fillMaxWidth()
                     .padding(horizontal = 5.dp)
             )
-            Spacer(modifier = Modifier.height(22.dp))
+            Spacer(modifier = Modifier.height(15.dp))
 
             // Card number input field
             FoodCardOutlinedTextField(
@@ -194,8 +195,7 @@ fun CardDetailsScreen(
                 modifier = Modifier.fillMaxWidth()
                     .padding(horizontal = 5.dp)
             )
-
-            Spacer(modifier = Modifier.height(22.dp))
+            Spacer(modifier = Modifier.height(15.dp))
 
             // Expiry date and CVC input fields
             Row(
@@ -214,7 +214,8 @@ fun CardDetailsScreen(
                     title = stringResource(Res.string.expiry_date),
                     modifier = Modifier.weight(1f)
                 )
-                Spacer(Modifier.width(20.dp))
+                Spacer(modifier = Modifier.width(15.dp))
+
                 FoodCardOutlinedTextField(
                     value = state.cvv,
                     onValueChange = { newCVV -> onEvent(CardDetailsAction.UpdateCvv(newCVV)) },
@@ -226,9 +227,12 @@ fun CardDetailsScreen(
                     modifier = Modifier.weight(1f)
                 )
             }
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(30.dp))
             // Use this card button
             FoodButton(
+                modifier = Modifier.fillMaxWidth()
+                    .padding(horizontal = 5.dp)
+                    .height(56.dp),
                 onClick = {},
                 text = stringResource(Res.string.use_this_card)
             )

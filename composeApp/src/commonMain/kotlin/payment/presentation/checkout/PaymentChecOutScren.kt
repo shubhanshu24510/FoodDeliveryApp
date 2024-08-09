@@ -10,22 +10,24 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import designSystem.FoodBackGroundColor
 import designSystem.FoodTextPrimaryColor
-import designSystem.RobotoFontFamily
 import fooddelivery.composeapp.generated.resources.Res
 import fooddelivery.composeapp.generated.resources.checkout
 import fooddelivery.composeapp.generated.resources.delivery_address
 import fooddelivery.composeapp.generated.resources.ic_back_arrow
 import fooddelivery.composeapp.generated.resources.ic_bikee
 import fooddelivery.composeapp.generated.resources.ic_credit_card_icon
+import fooddelivery.composeapp.generated.resources.ic_dronee
 import fooddelivery.composeapp.generated.resources.ic_home_grid
 import fooddelivery.composeapp.generated.resources.ic_home_icon
 import fooddelivery.composeapp.generated.resources.ic_shopping_cart
@@ -55,17 +57,21 @@ fun CheckoutScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(
-                        stringResource(Res.string.checkout),
-                        modifier = Modifier.padding(start = 120.dp, top = 20.dp),
-                        style = TextStyle.Default.copy(
-                            fontSize = 17.sp,
-                            color = FoodTextPrimaryColor,
-                            fontWeight = FontWeight.SemiBold,
-                            fontFamily = RobotoFontFamily(),
-                            textAlign = TextAlign.Center
+                    Box(
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Text(
+                            stringResource(Res.string.checkout),
+                            modifier = Modifier.padding(start = 120.dp, top = 20.dp),
+                            style = TextStyle.Default.copy(
+                                fontSize = 17.sp,
+                                color = FoodTextPrimaryColor,
+                                fontWeight = FontWeight.SemiBold,
+                                fontFamily = FontFamily.SansSerif,
+                                textAlign = TextAlign.Center
+                            )
                         )
-                    )
+                    }
                 },
                 navigationIcon = {
                     IconButton(
@@ -95,7 +101,7 @@ fun CheckoutScreen(
                         )
                     }
                     IconButton(
-                        onClick = {onCartClick() },
+                        onClick = { onCartClick() },
                         modifier = Modifier.padding(horizontal = 40.dp)
                     ) {
                         Icon(
@@ -122,7 +128,7 @@ fun CheckoutScreen(
                 .padding(innerPadding)
                 .padding(16.dp)
                 .fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(25.dp),
         ) {
             CardSection(
                 title = stringResource(Res.string.payment_method),
@@ -130,49 +136,36 @@ fun CheckoutScreen(
                 icon = vectorResource(Res.drawable.ic_credit_card_icon),
                 onChangeClick = { onChangeClick() }
             )
-            Spacer(modifier = Modifier.height(20.dp))
             CardSection(
                 title = stringResource(Res.string.delivery_address),
                 initialValue = "Alexandra Smith\n" + "Cesu 31 k-2 5.st, SIA Chili\n" + "Riga\n" + "LV–1012\n" + "Latvia\n",
                 icon = vectorResource(Res.drawable.ic_home_icon),
                 onChangeClick = { /* handle change payment method */ }
             )
-            Spacer(modifier = Modifier.height(20.dp))
-
             CheckoutTitleOption(
                 title = "Delivery options",
                 icon = null,
                 onChangeClick = { /* handle change delivery options */ }
             )
-            Column(
-                modifier = Modifier
-            ) {
-                DeliveryOption(
-                    option = stringResource(Res.string.pick_myself),
-                    icon = painterResource(Res.drawable.ic_walking_iocn),
-                    selected = false,
-                    onClick = {}
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-                DeliveryOption(
-                    option = stringResource(Res.string.pick_courier),
-                    icon = painterResource(Res.drawable.ic_bikee),
-                    selected = false,
-                    onClick = {}
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-                DeliveryOption(
-                    option = stringResource(Res.string.pick_by_drone),
-                    icon = painterResource(Res.drawable.ic_bikee),
-                    selected = false,
-                    onClick = {}
-                )
-            }
-
-            Spacer(modifier = Modifier.height(13.dp))
+            DeliveryOption(
+                option = stringResource(Res.string.pick_myself),
+                icon = painterResource(Res.drawable.ic_walking_iocn),
+                onClick = {}
+            )
+            DeliveryOption(
+                option = stringResource(Res.string.pick_courier),
+                icon = painterResource(Res.drawable.ic_bikee),
+                onClick = {}
+            )
+            DeliveryOption(
+                selected = true,
+                option = stringResource(Res.string.pick_by_drone),
+                icon = painterResource(Res.drawable.ic_dronee),
+                onClick = {}
+            )
             NonContactDeliverySwitch(
-                nonContactDelivery.value,
-                onCheckedChange = { nonContactDelivery.value = it }
+                modifier = Modifier
+                    .padding(vertical = 10.dp, horizontal = 2.dp)
             )
         }
     }

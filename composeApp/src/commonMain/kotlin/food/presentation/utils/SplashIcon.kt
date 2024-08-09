@@ -17,10 +17,9 @@ import fooddelivery.composeapp.generated.resources.ic_splash
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun SplashIcon(modifier: Modifier = Modifier) {
-
+fun SplashIcon(modifier: Modifier) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .clip(CircleShape)
             .background(
                 Color.White

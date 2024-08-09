@@ -28,6 +28,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
@@ -92,28 +93,17 @@ fun HorizontalPagerContent() {
                 ) {
                     repeat(pageCount) { iteration ->
                         val color =
-                            if (pagerState.currentPage == iteration) FoodWhiteColor else FoodBackGroundColor
+                            if (pagerState.currentPage == iteration) FoodWhiteColor else Color.Gray
                         item(key = "item$iteration") {
-                            val currentPage = pagerState.currentPage
-                            val firstVisibleIndex by remember { derivedStateOf { indicatorScrollState.firstVisibleItemIndex } }
-                            val lastVisibleIndex =
-                                indicatorScrollState.layoutInfo.visibleItemsInfo.lastOrNull()?.index
-                                    ?: 0
-                            val size by animateDpAsState(
-                                targetValue = if (iteration == currentPage) {
-                                    7.dp
-                                } else if (iteration in firstVisibleIndex + 1..lastVisibleIndex - 1) {
-                                    6.dp
-                                } else {
-                                    4.dp
-                                }
-                            )
+                            pagerState.currentPage
+                            indicatorScrollState.layoutInfo.visibleItemsInfo.lastOrNull()?.index
+                                ?: 0
                             Box(
                                 modifier = Modifier
                                     .padding(3.dp)
                                     .background(color, CircleShape)
                                     .size(
-                                        size
+                                        7.dp
                                     )
                             )
                         }

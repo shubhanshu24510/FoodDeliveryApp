@@ -2,21 +2,14 @@
 
 package food.presentation.category
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.BottomAppBar
@@ -38,9 +31,6 @@ import food.presentation.utils.FoodTopAppBar
 import fooddelivery.composeapp.generated.resources.Res
 import fooddelivery.composeapp.generated.resources.ic_back_arrow
 import fooddelivery.composeapp.generated.resources.ic_home_grid
-import fooddelivery.composeapp.generated.resources.ic_image_boston
-import fooddelivery.composeapp.generated.resources.ic_image_cabbage
-import fooddelivery.composeapp.generated.resources.ic_image_cultiflower
 import fooddelivery.composeapp.generated.resources.ic_shopping_cart
 import fooddelivery.composeapp.generated.resources.ic_user
 import fooddelivery.composeapp.generated.resources.vegetables
@@ -58,20 +48,8 @@ fun CategoryScreenRoot(
     remember {
         mutableStateOf(false)
     }
-    val imageResources = listOf(
-        Res.drawable.ic_image_boston,
-        Res.drawable.ic_image_cabbage,
-        Res.drawable.ic_image_cultiflower,
-    )
     Scaffold(
-        topBar = {
-            FoodTopAppBar(
-                tital = stringResource(Res.string.vegetables),
-                icon = vectorResource(Res.drawable.ic_back_arrow),
-                onBackClick = onBackClick,
-                onSearchClick = onSearchClick
-            )
-        },
+        containerColor = FoodBackGroundColor,
         bottomBar = {
             BottomAppBar(
                 containerColor = Color.White,
@@ -107,16 +85,28 @@ fun CategoryScreenRoot(
             )
 
         },
-        content = { paddingValues ->
+        content = { innerPadding ->
             val destinations = ItemDestinationDataSources().loadData()
-
             Column(
                 modifier = Modifier
-                    .background(FoodBackGroundColor)
-                    .padding(paddingValues = PaddingValues(top = 200.dp)),
+                    .padding(innerPadding),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                FlowRow {
-                    LazyRow {
+                FoodTopAppBar(
+                    title = stringResource(Res.string.vegetables),
+                    icon = vectorResource(Res.drawable.ic_back_arrow),
+                    onBackClick = {},
+                    onSearchClick = onSearchClick,
+                    modifier = Modifier
+                )
+                FlowRow(
+                    maxItemsInEachRow = 4,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalArrangement =  Arrangement.spacedBy(16.dp),
+                ) {
+                    LazyRow(
+                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp),
+                    ) {
                         items(filterItemNames.size) { index ->
                             FoodFilterChip(
                                 itemsName = filterItemNames[index]
@@ -125,7 +115,7 @@ fun CategoryScreenRoot(
                     }
                 }
                 LazyColumn(
-                    modifier = Modifier.padding(bottom = 80.dp)
+                    state = rememberLazyListState(),
                 ) {
                     itemsIndexed(destinations) { index, destination ->
                         FoodItemCard(

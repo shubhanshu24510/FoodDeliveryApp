@@ -6,30 +6,26 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import designSystem.FoodBackGroundColor
 import designSystem.FoodSplashTopBackground
 import designSystem.FoodTextSecondaryColor
-import designSystem.RobotoFontFamily
 import food.presentation.utils.FoodButton
 import food.presentation.utils.FoodDescriptionText
-import food.presentation.utils.FoodTitalText
+import food.presentation.utils.FoodTitelText
 import food.presentation.utils.OneTimeClickableText
 import food.presentation.utils.SplashIcon
 import fooddelivery.composeapp.generated.resources.Res
@@ -81,23 +77,19 @@ fun SplashScreenRoot(
                 verticalArrangement = Arrangement.Center,
                 modifier = Modifier.padding(vertical = 40.dp)
             ) {
-                SplashIcon(modifier = Modifier)
+                SplashIcon(
+                    modifier = Modifier.padding(vertical = 20.dp)
+                )
+                FoodTitelText(
+                    modifier = Modifier.padding(),
+                    name = stringResource(Res.string.splash_ti)
+                )
+                FoodTitelText(
+                    modifier = Modifier.padding(),
+                    name = stringResource(Res.string.splash_tiii),
+                )
 
-                Column(modifier = Modifier.padding(vertical = 20.dp)) {
-                    FoodTitalText(
-                        name = stringResource(Res.string.splash_ti),
-                        padding = PaddingValues(),
-                        modifier = Modifier.padding(horizontal = 75.dp, vertical = 2.dp),
-                    )
-                    Row(modifier = Modifier.padding(horizontal = 26.dp)) {
-                        FoodTitalText(
-                            name = stringResource(Res.string.splash_tiii),
-                            padding = PaddingValues()
-                        )
-                    }
-
-                }
-                Box(modifier = Modifier.padding(horizontal = 18.dp, vertical = 13.dp)) {
+                Box(modifier = Modifier.padding(horizontal = 18.dp, vertical = 22.dp)) {
                     FoodDescriptionText(
                         name = stringResource(Res.string.splash_des),
                         fontSize = 17.sp,
@@ -110,15 +102,20 @@ fun SplashScreenRoot(
                     onClick = {
                         onOrderClick()
                     },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(56.dp)
+                        .padding(horizontal = 20.dp),
                     text = stringResource(Res.string.order_now)
                 )
 
                 Row(
-                    modifier = Modifier.padding(horizontal = 50.dp, vertical = 10.dp),
+                    modifier = Modifier.padding(horizontal = 50.dp, vertical = 12.dp),
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     OneTimeClickableText(
+                        modifier = Modifier,
                         text = stringResource(Res.string.dismiss),
                         onClick = {
                             onDismissClick()

@@ -13,7 +13,7 @@ import payment.presentation.creditCard.CardDetailsScreenRoot
 @Preview
 fun App() {
     MaterialTheme {
-      val navController = rememberNavController()
+        val navController = rememberNavController()
 //        HomeScreenRoot()
 //        HorizontalPagerTopBar()
 //        FoodDetailsScreen()

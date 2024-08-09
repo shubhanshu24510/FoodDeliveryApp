@@ -4,17 +4,13 @@ import org.jetbrains.compose.resources.DrawableResource
 
 data class Destination(
     val imageRes: DrawableResource,
-    val title: String
+    val title: String,
+    val quantity: String
+
 )
 data class ItemDestination(
     val imageRes: DrawableResource,
-    val title: String
+    val title: String,
+    val price: String
 )
 
-//data class Destination(
-//    val nameItem: String,
-//    val photoItem: Painter,
-////    val descriptionItem: String,
-////    val countItem:Int,
-////    val destinationId: UUID = UUID.randomUUID()
-//)

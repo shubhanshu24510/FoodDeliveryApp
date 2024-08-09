@@ -32,6 +32,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -40,7 +41,6 @@ import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import designSystem.FoodBackGroundColor
-import designSystem.FoodSelectedBackgroundViolet
 import designSystem.FoodSelectedVioletColor
 import designSystem.FoodTextPrimaryColor
 import designSystem.FoodTextSecondaryColor
@@ -96,8 +96,8 @@ fun CardSection(
                             text = stringResource(Res.string.change),
                             style = TextStyle.Default.copy(
                                 fontSize = 15.sp,
-                                fontWeight = FontWeight.SemiBold,
-                                fontFamily = RobotoFontFamily(),
+                                fontWeight = FontWeight.ExtraBold,
+                                fontFamily = FontFamily.SansSerif,
                                 textAlign = TextAlign.Center,
                                 color = FoodSelectedVioletColor
                             ),
@@ -132,7 +132,7 @@ fun CardSection(
                                     fontSize = 17.sp,
                                     lineHeight = TextUnit(25f, TextUnitType.Sp),
                                     fontWeight = FontWeight.Normal,
-                                    fontFamily = RobotoFontFamily(),
+                                    fontFamily = FontFamily.SansSerif,
                                     textAlign = TextAlign.Start,
                                     color = FoodTextSecondaryColor
                                 ),
@@ -151,14 +151,15 @@ fun CardSection(
 fun DeliveryOption(
     option: String,
     icon: Painter,
-    selected: Boolean,
+    selected: Boolean = false,
     onClick: () -> Unit
 ) {
+//    var selected by rememberSaveable { mutableStateOf(false) }
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onClick() }
-            .background(if (selected) FoodSelectedBackgroundViolet else FoodBackGroundColor)
+            .background(FoodBackGroundColor)
             .padding(10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -176,8 +177,8 @@ fun DeliveryOption(
             style = TextStyle.Default.copy(
                 fontSize = 17.sp,
                 textAlign = TextAlign.Center,
-                fontFamily = RobotoFontFamily(),
-                fontWeight = FontWeight.Normal,
+                fontFamily = FontFamily.SansSerif,
+                fontWeight = if(selected) FontWeight.SemiBold else FontWeight.Normal,
                 color = if (selected) FoodSelectedVioletColor else FoodTextSecondaryColor
             )
         )
@@ -196,12 +197,11 @@ fun DeliveryOption(
 
 @Composable
 fun NonContactDeliverySwitch(
-    checked: Boolean,
-    onCheckedChange: (Boolean) -> Unit
+    modifier: Modifier
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth()
-            .padding(start = 10.dp),
+        modifier = modifier.padding(horizontal = 5.dp)
+            .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -210,20 +210,21 @@ fun NonContactDeliverySwitch(
             style = TextStyle.Default.copy(
                 fontSize = 22.sp,
                 textAlign = TextAlign.Center,
-                fontFamily = RobotoFontFamily(),
+                fontFamily = FontFamily.SansSerif,
                 fontWeight = FontWeight.Bold,
                 color = FoodTextPrimaryColor,
-            )
+            ),
+            modifier = modifier
         )
         var checked by remember { mutableStateOf(true) }
 
         Switch(
-            modifier = Modifier
-                .size(width = 74.dp, height = 30.dp)
+            modifier = modifier
                 .border(BorderStroke(width = 0.dp, color = Color.White))
                 .semantics { contentDescription = "Demo with icon" },
             checked = checked,
             onCheckedChange = { checked = it },
+            enabled = true,
             colors = SwitchDefaults.colors(FoodWhiteColor),
         )
     }
@@ -247,7 +248,7 @@ fun CheckoutTitleOption(
             style = TextStyle.Default.copy(
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
-                fontFamily = RobotoFontFamily(),
+                fontFamily = FontFamily.SansSerif,
                 textAlign = TextAlign.Center,
                 color = FoodTextPrimaryColor
             )
@@ -257,7 +258,7 @@ fun CheckoutTitleOption(
             style = TextStyle.Default.copy(
                 fontSize = 15.sp,
                 fontWeight = FontWeight.SemiBold,
-                fontFamily = RobotoFontFamily(),
+                fontFamily = FontFamily.SansSerif,
                 textAlign = TextAlign.Center,
                 color = FoodSelectedVioletColor
             ),
